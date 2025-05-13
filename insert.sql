@@ -1,3 +1,5 @@
+-- 階段：0，無外鍵依賴
+
 INSERT INTO `Employee` (
     `title`, `firstName`, `middleName`, `lastName`, `address`,
     `workTelExt`, `homeTelNo`, `empEmailAddress`, `socialSecurityNumber`,
@@ -19,6 +21,8 @@ INSERT INTO `Employee` (
  '404', NULL, 'shuhua.huang@example.com', 'E998877665',
  '1983-06-18', '行政主管', 'F', 65000.00, '2013-08-01');
 
+-- 階段：1，無外鍵依賴
+
  INSERT INTO `Customer` (
     `customerName`, `customerStreet`, `customerCity`, `customerState`, 
     `customerZipCode`, `custTelNo`, `custFaxNo`, `DOB`, 
@@ -39,3 +43,24 @@ INSERT INTO `Product` (
 ('27吋螢幕', 'MON-2025003', 6290.00, 35, 10, 15, 14),
 ('USB-C 充電線', 'CAB-2025004', 129.00, 300, 100, 200, 3),
 ('外接硬碟 1TB', 'HDD-2025005', 2390.00, 50, 10, 20, 5);
+
+INSERT INTO `ShipmentMethod` (`shipmentMethod`) VALUES
+('宅配'),
+('7-11超商取貨'),
+('全家超商取貨'),
+('黑貓宅急便'),
+('郵局掛號'),
+('公司自取'),
+('國際快遞 DHL'),
+('國際快遞 FedEx');
+
+INSERT INTO `PaymentMethod` (`paymentMethod`) VALUES
+('信用卡'),
+('金融卡'),
+('貨到付款'),
+('超商代碼繳費'),
+('ATM轉帳'),
+('Line Pay'),
+('街口支付'),
+('Apple Pay'),
+('現金');

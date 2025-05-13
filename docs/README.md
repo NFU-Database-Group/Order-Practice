@@ -25,10 +25,13 @@ DB_NAME=order_practice
 ```
 
 確認資料庫(mariaDB)是否有在運作，建立資料庫 `order_practice` (名稱可以改)
+- 資料表依賴層次參考 [討論#1](https://github.com/NFU-Database-Group/Order-Practice/discussions/1#discussioncomment-13127160)
 - 資料表建立參考 [table.sql](../tables.sql)
 - 假資料輸入參考 [insert.sql](../insert.sql)
 
 ## Run
+
+程式與資料互動細節參考 [detail.md](./detail.md)
 
 ```bash
 node index.js
