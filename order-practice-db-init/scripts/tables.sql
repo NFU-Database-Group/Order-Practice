@@ -1,3 +1,9 @@
+CREATE DATABASE IF NOT EXISTS order_practice_db;
+
+USE order_practice_db;
+
+-- Create tables as defined in tables.sql
+
 CREATE TABLE `Employee` (
     `employeeNo` INT NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(20) DEFAULT NULL,

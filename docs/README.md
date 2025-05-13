@@ -21,13 +21,14 @@ npm install
 DB_HOST=<your-host> #e.g. localhost
 DB_USER=<your-username> #請確認此使用者有權限讀取目標資料庫(order_practice)
 DB_PASS=<your-passowrd>
-DB_NAME=order_practice
+DB_NAME=order_practice_db
 ```
 
-確認資料庫(mariaDB)是否有在運作，建立資料庫 `order_practice` (名稱可以改)
+確認資料庫(mariaDB)是否有在運作，建立資料庫 `order_practice_db` (名稱可以改)
 - 資料表依賴層次參考 [討論#1](https://github.com/NFU-Database-Group/Order-Practice/discussions/1#discussioncomment-13127160)
-- 資料表建立參考 [table.sql](../tables.sql)
-- 假資料輸入參考 [insert.sql](../insert.sql)
+- 參考 [資料表建立說明](../order-practice-db-init/README.md)
+    - [資料表建立SQL](../order-practice-db-init/scripts/tables.sql)
+    - [模擬資料輸入SQL](../order-practice-db-init/scripts/data.sql)
 
 ## Run
 

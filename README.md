@@ -29,8 +29,9 @@
 
 ### 附錄
 
-- [資料表建立SQL](./tables.sql)
-- [資料表模擬資料SQL](./insert.sql)
+- [資料庫初始化SQL](./order-practice-db-init/README.md)
+    - [資料表建立SQL](./order-practice-db-init/scripts/tables.sql)
+    - [資料表模擬資料SQL](./order-practice-db-init/scripts/data.sql)
 - [實作細節與SQL](./docs/detail.md)
 - [訂單系統使用說明](./docs/README.md)
 
