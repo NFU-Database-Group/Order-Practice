@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<%- include('head') %>
+<body>
+    <%- include('header') %>
+    <div class="container">
+        <h2>會員登入</h2>
+        <form action="/login" method="POST">
+            <div>
+                <label for="username">帳號：</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">密碼：</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div style="margin-top: 15px;">
+                <button type="submit">登入</button>
+            </div>
+        </form>
+        <p style="margin-top: 20px;">
+            還沒有帳號？<a href="/register">註冊新會員</a>
+        </p>
+    </div>
+</body>
+</html>
