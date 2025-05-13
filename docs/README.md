@@ -34,5 +34,9 @@ DB_NAME=order_practice
 程式與資料互動細節參考 [detail.md](./detail.md)
 
 ```bash
-node index.js
+node order_system.js # 訂單管理系統 / 用戶下單
+node inventory_manager.js # 庫存管理系統
+
+# or
+npm run dev:all #參見package.json
 ```

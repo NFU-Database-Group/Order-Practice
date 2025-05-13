@@ -1,9 +1,8 @@
-// index.js
 const express = require('express');
 const pool = require('./db');
 
 const app = express();
-const port = 3000;
+const port = 65432;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -1,6 +1,6 @@
 # Details of order system
 
-相關資料處理都在 `index.js` 中。
+相關資料處理都在 `order_system.js` 中。
 
 ## 階段 0
 
@@ -10,7 +10,7 @@
     - `/orders` 訂單(post)：取出所有員工編號，隨機選擇一位負責處理訂單 (暫時)  
         Query
         ```js
-        await conn.query('SELECT employeeNo FROM employee');
+        await conn.query('SELECT employeeNo FROM employee'); //order_system.js
         ```
         SQL
         ```sql
@@ -25,7 +25,7 @@
     - `/register` 註冊(post)：將新註冊的用戶加進客戶資料表 (目前只實作最少要求欄位的版本)  
         INSERT INTO
         ```js
-        await conn.query('INSERT INTO customer (customerName, custTelNo) VALUES (?, ?)', [username, phone]); //index
+        await conn.query('INSERT INTO customer (customerName, custTelNo) VALUES (?, ?)', [username, phone]); //order_system.js
         ```
         SQL
         ```sql
@@ -40,7 +40,7 @@
     - `/product` 所有商品頁面：取出所有商品的必要資訊  
         Query
         ```js
-        await conn.query('SELECT productNo, productName, unitPrice, quantityOnHand FROM product'); //index.js
+        await conn.query('SELECT productNo, productName, unitPrice, quantityOnHand FROM product'); //order_system.js
         ```
         SQL
         ```sql
@@ -49,7 +49,7 @@
     - `/` 首頁：取出前三個商品 (尚未實作排序)  
         Query
         ```js
-        await conn.query('SELECT productNo, productName, unitPrice, quantityOnHand FROM product LIMIT 3'); //index.js
+        await conn.query('SELECT productNo, productName, unitPrice, quantityOnHand FROM product LIMIT 3'); //order_system.js
         ```
         SQL
         ```sql
@@ -58,7 +58,7 @@
     - `/orders` 訂單頁面：根據訂單紀錄的產品編號找出對應的產品名稱  
         Query
         ```js
-        await conn.query('SELECT productName FROM product WHERE productNo = ?', [detail[j].productNo]); //index
+        await conn.query('SELECT productName FROM product WHERE productNo = ?', [detail[j].productNo]); //order_system.js
         ```
         SQL
         ```sql
@@ -74,7 +74,7 @@
     - `/orders` 訂單頁面：顯示客戶訂單狀態  
         Query
         ```js
-        await conn.query('SELECT orderNo, orderDate, status, employeeNo FROM `order` WHERE customerNo = ?', [req.session.user.id]);
+        await conn.query('SELECT orderNo, orderDate, status, employeeNo FROM `order` WHERE customerNo = ?', [req.session.user.id]); //order_system.js
         ```
         SQL
         ```sql
@@ -83,7 +83,7 @@
     - `/orders` 訂購(post)：客戶執行訂購，產生訂單資訊並記錄到資料庫  
         INSERT INTO
         ```js
-        await conn.query('INSERT INTO `order` (orderDate, customerNo, employeeNo, status) VALUES (?, ?, ?, ?)', [now.toISOString().slice(0, 19).replace('T', ' '), req.session.user.id, randomIndex, 'TBC']);
+        await conn.query('INSERT INTO `order` (orderDate, customerNo, employeeNo, status) VALUES (?, ?, ?, ?)', [now.toISOString().slice(0, 19).replace('T', ' '), req.session.user.id, randomIndex, 'TBC']); //order_system.js
         ```
         SQL
         ```sql
@@ -96,7 +96,7 @@
     - `/orders` 訂單頁面：顯示客戶訂單狀態，附上詳細訂單資訊  
         Query
         ```js
-        await conn.query('SELECT productNo, quantityOrdered FROM OrderDetail WHERE orderNo = ?', [rows[i].orderNo]);
+        await conn.query('SELECT productNo, quantityOrdered FROM OrderDetail WHERE orderNo = ?', [rows[i].orderNo]); //order_system.js
         ```
         SQL
         ```sql
@@ -105,7 +105,7 @@
     - `/orders` 訂單(post)：客戶執行訂購，產生訂單詳細資訊並記錄到資料庫  
         INSERT INTO
         ```js
-        await conn.query('INSERT INTO OrderDetail (orderNo, productNo, quantityOrdered) VALUES (?, ?, ?)', [orderNo.insertId, req.session.cart[i].id, req.session.cart[i].quantity]);
+        await conn.query('INSERT INTO OrderDetail (orderNo, productNo, quantityOrdered) VALUES (?, ?, ?)', [orderNo.insertId, req.session.cart[i].id, req.session.cart[i].quantity]); //order_system.js
         ```
         SQL
         ```sql
