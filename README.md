@@ -7,6 +7,16 @@
 
 ## 摘要
 
+### SQL讀取方法
+
+1. 初始化資料庫 `init.sql`
+2. 建立所有資料表 `tables.sql`
+3. 對每個資料表建立五筆資料 `insert.sql`
+
+<div><video controls src="./docs/Creating%20database.mp4" muted="false"></video></div>
+
+### 資料表互動說明
+
 - 客戶（Customer）下訂單（Order），每筆訂單都要有人員（Employee）確認並處理。
 - 處理完成後，對每筆訂單產生一張發票（Invoice），並記錄用戶選擇的付款方式（PaymentMethod）。
 - 訂單透過訂單明細（OrderDetail）細分每種商品（Product）與數量，並最終包裝成一或多張出貨單（Shipment），由某位員工負責準備，且標明出貨方式（ShipmentMethod）。
