@@ -28,115 +28,115 @@
 
 ### Customer
 
-| 欄位名稱         | 鍵類型    | 參照說明 |
-|:-----------------|:----------|:---------|
-| customerNo       | 主鍵      |          |
-| customerName     |           |          |
-| customerStreet   |           |          |
-| customerCity     |           |          |
-| customerState    |           |          |
-| customerZipCode  |           |          |
-| custTelNo        | 替代鍵    |          |
-| custFaxNo        | 替代鍵    |          |
-| DOB              |           |          |
-| maritalStatus    |           |          |
-| creditRating     |           |          |
+| 欄位名稱        | 欄位說明     | 鍵類型 | 參照說明 | 是否可為空 |
+| :-------------- | :----------- | :----- | :------- | :--------- |
+| customerNo      | 客戶編號     | 主鍵   |          | 否         |
+| customerName    | 客戶姓名     |        |          | 否         |
+| customerStreet  | 客戶住址     |        |          | 是         |
+| customerCity    | 客戶居住城市 |        |          | 是         |
+| customerState   | 客戶居住地區 |        |          | 是         |
+| customerZipCode | 客戶郵遞區號 |        |          | 是         |
+| custTelNo       | 客戶電話號碼 | 替代鍵 |          | 否         |
+| custFaxNo       | 客戶傳真號碼 | 替代鍵 |          | 否         |
+| DOB             | 客戶出生日期 |        |          | 是         |
+| maritalStatus   | 客戶婚姻狀態 |        |          | 是         |
+| creditRating    | 客戶信用等級 |        |          | 否         |
 
 ### Employee
 
-| 欄位名稱              | 鍵類型       | 參照說明 |
-|:----------------------|:------------|:---------|
-| employeeNo            | 主鍵        |          |
-| title                 |             |          |
-| firstName             |             |          |
-| middleName            |             |          |
-| lastName              |             |          |
-| address               |             |          |
-| workTelExt            |             |          |
-| homeTelNo             |             |          |
-| empEmailAddress       |             |          |
-| socialSecurityNumber  | 替代鍵      |          |
-| DOB                   |             |          |
-| position              |             |          |
-| sex                   |             |          |
-| salary                |             |          |
-| dateStarted           |             |          |
+| 欄位名稱             | 欄位說明     | 鍵類型 | 參照說明 | 是否可為空 |
+| :------------------- | :----------- | :----- | :------- | :--------- |
+| employeeNo           | 員工編號     | 主鍵   |          | 否         |
+| title                | 員工職稱     |        |          | 是         |
+| firstName            | 名字         |        |          | 否         |
+| middleName           | 中間名       |        |          | 是         |
+| lastName             | 姓氏         |        |          | 否         |
+| address              | 電子郵件     |        |          | 是         |
+| workTelExt           | 工作分機電話 |        |          | 否         |
+| homeTelNo            | 住家電話號碼 |        |          | 是         |
+| empEmailAddress      | 員工電子郵件 |        |          | 否         |
+| socialSecurityNumber | 社會安全碼   | 替代鍵 |          | 否         |
+| DOB                  | 員工出身日期 |        |          | 是         |
+| position             | 員工職稱     |        |          | 是         |
+| sex                  | 員工性別     |        |          | 是         |
+| salary               | 員工薪水     |        |          | 否         |
+| dateStarted          | 雇用日期     |        |          | 否         |
 
 ### Invoice
 
-| 欄位名稱     | 鍵類型   | 參照說明                      |
-|:--------------|:---------|:------------------------------|
-| invoiceNo     | 主鍵     |                               |
-| dateRaised    |          |                               |
-| datePaid      |          |                               |
-| creditCardNo  |          |                               |
-| holdersName   |          |                               |
-| expiryDate    |          |                               |
-| orderNo       | 外鍵     | 參照 Order(orderNo)           |
-| pMethodNo     | 外鍵     | 參照 PaymentMethod(pMethodNo) |
+| 欄位名稱     | 欄位說明       | 鍵類型 | 參照說明                      | 是否可為空 |
+| :----------- | :------------- | :----- | :---------------------------- | :--------- |
+| invoiceNo    | 發票編號       | 主鍵   |                               | 否         |
+| dateRaised   | 發票開設日期   |        |                               | 否         |
+| datePaid     | 付款日期       |        |                               | 否         |
+| creditCardNo | 信用卡號末四碼 |        |                               | 否         |
+| holdersName  | 持有人姓名     |        |                               | 否         |
+| expiryDate   | 過期日期       |        |                               | 否         |
+| orderNo      | 訂單編號       | 外鍵   | 參照 Order(orderNo)           | 否         |
+| pMethodNo    | 付款方式編號   | 外鍵   | 參照 PaymentMethod(pMethodNo) | 否         |
 
 ### Order
 
-| 欄位名稱        | 鍵類型   | 參照說明                         |
-|:----------------|:---------|:---------------------------------|
-| orderNo         | 主鍵     |                                  |
-| orderDate       |          |                                  |
-| billingStreet   |          |                                  |
-| billingCity     |          |                                  |
-| billingState    |          |                                  |
-| billingZipCode  |          |                                  |
-| promisedDate    |          |                                  |
-| status          |          |                                  |
-| customerNo      | 外鍵     | 參照 Customer(customerNo)        |
-| employeeNo      | 外鍵     | 參照 Employee(employeeNo)        |
+| 欄位名稱       | 欄位說明     | 鍵類型 | 參照說明                  | 是否可為空 |
+| :------------- | :----------- | :----- | :------------------------ | :--------- |
+| orderNo        | 訂單編號     | 主鍵   |                           | 否         |
+| orderDate      | 訂單日期     |        |                           | 否         |
+| billingStreet  | 帳單地址     |        |                           | 否         |
+| billingCity    | 帳單城市     |        |                           | 否         |
+| billingState   | 帳單地區     |        |                           | 否         |
+| billingZipCode | 帳單郵遞區號 |        |                           | 否         |
+| promisedDate   | 承諾日期     |        |                           | 否         |
+| status         | 訂單狀態     |        |                           | 否         |
+| customerNo     | 客戶編號     | 外鍵   | 參照 Customer(customerNo) | 否         |
+| employeeNo     | 負責員工編號 | 外鍵   | 參照 Employee(employeeNo) | 否         |
 
 ### OrderDetail
 
-| 欄位名稱         | 鍵類型          | 參照說明                        |
-|:-----------------|:----------------|:--------------------------------|
-| orderNo          | 主鍵、外鍵      | 參照 Order(orderNo)             |
-| productNo        | 主鍵、外鍵      | 參照 Product(productNo)         |
-| quantityOrdered  |                 |                                 |
+| 欄位名稱        | 欄位說明 | 鍵類型     | 參照說明                | 是否可為空 |
+| :-------------- | :------- | :--------- | :---------------------- | :--------- |
+| orderNo         | 訂單編號 | 主鍵、外鍵 | 參照 Order(orderNo)     | 否         |
+| productNo       | 產品編號 | 主鍵、外鍵 | 參照 Product(productNo) | 否         |
+| quantityOrdered | 訂購數量 |            |                         | 否         |
 
 ### PaymentMethod
 
-| 欄位名稱       | 鍵類型   | 參照說明 |
-|:---------------|:---------|:---------|
-| pMethodNo      | 主鍵     |          |
-| paymentMethod  |          |          |
+| 欄位名稱      | 欄位說明     | 鍵類型 | 參照說明 | 是否可為空 |
+| :------------ | :----------- | :----- | :------- | :--------- |
+| pMethodNo     | 付款方式編號 | 主鍵   |          | 否         |
+| paymentMethod | 付款方式     |        |          | 否         |
 
 ### Product
 
-| 欄位名稱         | 鍵類型     | 參照說明 |
-|:-----------------|:-----------|:---------|
-| productNo        | 主鍵       |          |
-| productName      |            |          |
-| serialNo         | 替代鍵     |          |
-| unitPrice        |            |          |
-| quantityOnHand   |            |          |
-| reorderLevel     |            |          |
-| reorderQuantity  |            |          |
-| reorderLeadTime  |            |          |
+| 欄位名稱        | 欄位說明     | 鍵類型 | 參照說明 | 是否可為空 |
+| :-------------- | :----------- | :----- | :------- | :--------- |
+| productNo       | 產品編號     | 主鍵   |          | 否         |
+| productName     | 產品名稱     |        |          | 否         |
+| serialNo        | 系列編號     | 替代鍵 |          | 否         |
+| unitPrice       | 單價         |        |          | 否         |
+| quantityOnHand  | 現有數量     |        |          | 否         |
+| reorderLevel    | 安全庫存量   |        |          | 否         |
+| reorderQuantity | 補貨數量     |        |          | 否         |
+| reorderLeadTime | 補貨交貨時間 |        |          | 否         |
 
 ### Shipment
 
-| 欄位名稱        | 鍵類型     | 參照說明                                      |
-|:----------------|:-----------|:-----------------------------------------------|
-| shipmentNo      | 主鍵       |                                                |
-| quantity        |            |                                                |
-| shipmentDate    |            |                                                |
-| completeStatus  |            |                                                |
-| orderNo         | 外鍵       | 參照 OrderDetail(orderNo, productNo)           |
-| productNo       | 外鍵       | 參照 OrderDetail(orderNo, productNo)           |
-| employeeNo      | 外鍵       | 參照 Employee(employeeNo)                      |
-| sMethodNo       | 外鍵       | 參照 ShipmentMethod(sMethodNo)                 |
+| 欄位名稱       | 欄位說明     | 鍵類型 | 參照說明                             | 是否可為空 |
+| :------------- | :----------- | :----- | :----------------------------------- | :--------- |
+| shipmentNo     | 運送編號     | 主鍵   |                                      | 否         |
+| quantity       | 運送數量     |        |                                      | 否         |
+| shipmentDate   | 運送日期     |        |                                      | 否         |
+| completeStatus | 完成狀態     |        |                                      | 否         |
+| orderNo        | 訂單編號     | 外鍵   | 參照 OrderDetail(orderNo, productNo) | 否         |
+| productNo      | 產品編號     | 外鍵   | 參照 OrderDetail(orderNo, productNo) | 否         |
+| employeeNo     | 員工編號     | 外鍵   | 參照 Employee(employeeNo)            | 否         |
+| sMethodNo      | 運送方式編號 | 外鍵   | 參照 ShipmentMethod(sMethodNo)       | 否         |
 
 ### ShipmentMethod
 
-| 欄位名稱        | 鍵類型   | 參照說明 |
-|:----------------|:---------|:---------|
-| sMethodNo       | 主鍵     |          |
-| shipmentMethod  |          |          |
+| 欄位名稱       | 欄位說明     | 鍵類型 | 參照說明 | 是否可為空 |
+| :------------- | :----------- | :----- | :------- | :--------- |
+| sMethodNo      | 運送方式編號 | 主鍵   |          | 否         |
+| shipmentMethod | 運送方式     |        |          | 否         |
 
 ## 關係
 
