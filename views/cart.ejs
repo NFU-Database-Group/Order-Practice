@@ -8,6 +8,12 @@
         <% if (cart.length === 0) { %>
             <p>您的購物車是空的。</p>
         <% } else { %>
+            <%
+                let totalPrice = 0;
+                cart.forEach(function(item) {
+                    totalPrice += item.price * item.quantity;
+                });
+            %>
             <div class="product-list">
                 <% cart.forEach(function(item) { %>
                     <div class="product">
@@ -20,6 +26,12 @@
                         </form>
                     </div>
                 <% }); %>
+            </div>
+            <div>
+                <h3>總金額: NT$<%= totalPrice %></h3>
+                <form action="/orders" method="POST">
+                    <button type="submit">下單</button>
+                </form>
             </div>
         <% } %>
     </div>

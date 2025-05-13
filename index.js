@@ -64,7 +64,7 @@ app.get('/products', async (req, res) => {
   res.render('products', { title: '產品', user: req.session.user || null, products: products });
 });
 app.get('/login', (req, res) => {
-  res.render('login', { title: '登入', user: req.session.user || null });
+  res.render('login', { title: '登入', user: req.session.user || null});
 });
 app.get('/register', (req, res) => {
   res.render('register', { title: '註冊', user: req.session.user || null });
@@ -76,10 +76,7 @@ app.post('/register', async (req, res) => {
       conn = await pool.getConnection();
       const result = await conn.query('INSERT INTO customer (customerName, custTelNo) VALUES (?, ?)', [username, phone]);
       console.log('註冊成功', result);
-      req.session.user = { name: username };
-      req.session.loggedIn = true;
-      req.session.username = username;
-      res.redirect('/');
+      res.redirect('/login');
   } catch (err) {
       console.error('註冊失敗', err);
       res.status(500).send('註冊失敗');
@@ -93,11 +90,11 @@ app.post('/login', async (req, res) => {
   let conn;
   try {
       conn = await pool.getConnection();
-      const rows = await conn.query('SELECT * FROM customer WHERE customerName = ?', [username]);
+      const rows = await conn.query('SELECT customerNo FROM customer WHERE customerName = ?', [username]);
       if (rows.length > 0) {
         // 找到相符的使用者
         console.log('登入成功');
-        req.session.user = { name: username };
+        req.session.user = { name: username, id: rows[0].customerNo };
         req.session.loggedIn = true;
         req.session.username = username;
       } else {
@@ -160,6 +157,67 @@ app.post('/cart_remove', (req, res) => {
   req.session.cart = req.session.cart.filter(item => item.id !== productNo);
   console.log('購物車內容:', req.session.cart);
   res.redirect('/cart');
+});
+
+app.get('/orders', async (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.status(401).send('請先登入');
+    }
+    let conn;
+    let orders = [];
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query('SELECT orderNo, orderDate, status, employeeNo FROM `order` WHERE customerNo = ?', [req.session.user.id]);
+        for (let i = 0; i < rows.length; i++) {
+          const detail = await conn.query('SELECT productNo, quantityOrdered FROM OrderDetail WHERE orderNo = ?', [rows[i].orderNo]);
+          const products = [];
+          for (let j = 0; j < detail.length; j++) {
+            const productName = await conn.query('SELECT productName FROM product WHERE productNo = ?', [detail[j].productNo]);
+            const product = {
+              id: detail[j].productNo,
+              name: productName[0].productName,
+              quantity: detail[j].quantityOrdered
+            };
+            products.push(product);
+          }
+          const order = {
+            id: rows[i].orderNo,
+            date: rows[i].orderDate,
+            status: rows[i].status,
+            employeeNo: rows[i].employeeNo,
+            orderDetails: products
+          };
+          orders.push(order);
+        }
+    } catch (err) {
+        console.error('資料庫錯誤', err);
+    } finally {
+        if (conn) conn.release();
+    }
+    res.render('orders', { title: '訂單', user: req.session.user || null, orders: orders });
+});
+app.post('/orders', async (req, res) => {
+  if (!req.session.loggedIn) {
+    return res.status(401).send('請先登入');
+  }
+  let conn;
+  try {
+    const now = new Date();
+    conn = await pool.getConnection();
+    const employee = await conn.query('SELECT employeeNo FROM employee');
+    const randomIndex = Math.floor(Math.random() * employee.length);
+    const orderNo = await conn.query('INSERT INTO `order` (orderDate, customerNo, employeeNo, status) VALUES (?, ?, ?, ?)', [now.toISOString().slice(0, 19).replace('T', ' '), req.session.user.id, randomIndex, 'TBC']);
+    for (let i = 0; i < req.session.cart.length; i++) {
+      await conn.query('INSERT INTO OrderDetail (orderNo, productNo, quantityOrdered) VALUES (?, ?, ?)', [orderNo.insertId, req.session.cart[i].id, req.session.cart[i].quantity]);
+    }
+    req.session.cart = [];
+    console.log('訂單已建立:', orderNo);
+    res.redirect('/orders');
+  } catch (err) {
+    console.error('資料庫錯誤', err);
+  } finally {
+    if (conn) conn.release();
+  }
 });
 
 app.get('/customer', async (req, res) => {

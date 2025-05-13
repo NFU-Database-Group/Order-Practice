@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<%- include('head') %>
+<body>
+    <%- include('header') %>
+    <div class="container">
+        <h2>訂單</h2>
+        <% if (orders.length === 0) { %>
+            <p>您的訂單是空的。</p>
+        <% } else { %>
+            <% orders.forEach(function(item) { %>
+            <p>訂購日期: <%= item.date %></p>
+            <p>狀態: <%= item.status %></p>
+            <p>負責人: <%= item.employeeNo %></p>
+            <div class="product-list">
+                <% item.orderDetails.forEach(function(product) { %>
+                <div class="product">
+                    <p>名稱: <%= product.name %></p>
+                    <p>數量: <%= product.quantity %></p>
+                </div>
+                <% }); %>
+            </div>
+            <% }); %>
+        <% } %>
+    </div>
+</body>
+</html>
