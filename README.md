@@ -13,7 +13,7 @@
 2. 建立所有資料表 `tables.sql`
 3. 對每個資料表建立五筆資料 `insert.sql`
 
-<div><video controls src="./docs/Creating%20database.mp4" muted="false"></video></div>
+<https://github.com/user-attachments/assets/5d9e431c-6040-4305-8147-7dc18dddb470>
 
 ### 資料表互動說明
 
