@@ -1,0 +1,25 @@
+{
+  "name": "order-practice",
+  "version": "1.0.0",
+  "description": "> [!NOTE]\r > - 要求：參見附錄E，於一周內建立簡單的 `庫存管理` 與 `訂單系統` (期限 05/14/25)  \r > - 加分項目：自動化處理，系統非被動被呼叫",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/NFU-Database-Group/Order-Practice.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NFU-Database-Group/Order-Practice/issues"
+  },
+  "homepage": "https://github.com/NFU-Database-Group/Order-Practice#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mariadb": "^3.4.2"
+  }
+}
