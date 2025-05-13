@@ -5,16 +5,7 @@
     <%- include('header') %>
     <div class="container">
         <h2>所有商品</h2>
-        <div class="product-list">
-        <% products.forEach(function(product) { %>
-            <div class="product">
-                <h3><%= product.name %></h3>
-                <p>價格: NT$<%= product.price %></p>
-                <p>庫存: <%= product.quantity %></p>
-                <button>加入購物車</button>
-            </div>
-        <% }); %>
-        </div>
+        <%- include('product_list') %>
     </div>
 </body>
 </html>

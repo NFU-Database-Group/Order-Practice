@@ -1,0 +1,16 @@
+<div class="product-list">
+<% products.forEach(function(product) { %>
+    <div class="product">
+        <h3><%= product.name %></h3>
+        <p>價格: NT$<%= product.price %></p>
+        <p>庫存: <%= product.quantity %></p>
+        <form action="/cart_add" method="POST" style="display:inline;">
+            <input type="hidden" name="productNo" value="<%= product.id %>">
+            <input type="hidden" name="productName" value="<%= product.name %>">
+            <input type="hidden" name="unitPrice" value="<%= product.price %>">
+            <input type="number" name="quantity" min="1" max="<%= product.quantity %>" value="1">
+            <button type="submit">加入購物車</button>
+        </form>
+    </div>
+<% }); %>
+</div>

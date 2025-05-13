@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<%- include('head') %>
+<body>
+    <%- include('header') %>
+    <div class="container">
+        <h2>購物車</h2>
+        <% if (cart.length === 0) { %>
+            <p>您的購物車是空的。</p>
+        <% } else { %>
+            <div class="product-list">
+                <% cart.forEach(function(item) { %>
+                    <div class="product">
+                        <h3><%= item.name %></h3>
+                        <p>價格: NT$<%= item.price %></p>
+                        <p>數量: <%= item.quantity %></p>
+                        <form action="/cart_remove" method="POST" style="display:inline;">
+                            <input type="hidden" name="productNo" value="<%= item.id %>">
+                            <button>移除</button>
+                        </form>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

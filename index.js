@@ -23,9 +23,10 @@ app.get('/', async (req, res) => {
   let products = [];
   try {
       conn = await pool.getConnection();
-      const rows = await conn.query('SELECT productName, unitPrice, quantityOnHand FROM product LIMIT 3');
+      const rows = await conn.query('SELECT productNo, productName, unitPrice, quantityOnHand FROM product LIMIT 3');
       for (let i = 0; i < rows.length; i++) {
         const product = {
+          id: rows[i].productNo,
           name: rows[i].productName,
           price: rows[i].unitPrice,
           quantity: rows[i].quantityOnHand
@@ -45,9 +46,10 @@ app.get('/products', async (req, res) => {
   let products = [];
   try {
       conn = await pool.getConnection();
-      const rows = await conn.query('SELECT productName, unitPrice, quantityOnHand FROM product');
+      const rows = await conn.query('SELECT productNo, productName, unitPrice, quantityOnHand FROM product');
       for (let i = 0; i < rows.length; i++) {
         const product = {
+          id: rows[i].productNo,
           name: rows[i].productName,
           price: rows[i].unitPrice,
           quantity: rows[i].quantityOnHand
@@ -101,6 +103,45 @@ app.post('/logout', (req, res) => {
     console.log('登出成功');
     res.redirect('/');
   });
+});
+
+app.get('/cart', (req, res) => {
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+  res.render('cart', { title: '購物車', user: req.session.user || null, cart: req.session.cart });
+});
+app.post('/cart_add', (req, res) => {
+  const { productNo, productName, unitPrice, quantity } = req.body;
+  if (!req.session.loggedIn) {
+      return res.status(401).send('請先登入');
+  }
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+  const product = {
+    id: productNo,
+    name: productName,
+    price: unitPrice,
+    quantity: quantity
+  };
+  const existingProduct = req.session.cart.find(item => item.id === productNo);
+  if (existingProduct) {
+      existingProduct.quantity = parseInt(existingProduct.quantity) + parseInt(quantity);
+  } else {
+      req.session.cart.push(product);
+  }
+  console.log('購物車內容:', req.session.cart);
+  res.redirect('/');
+});
+app.post('/cart_remove', (req, res) => {
+  const { productNo } = req.body;
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+  req.session.cart = req.session.cart.filter(item => item.id !== productNo);
+  console.log('購物車內容:', req.session.cart);
+  res.redirect('/cart');
 });
 
 app.get('/customer', async (req, res) => {
