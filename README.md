@@ -44,6 +44,8 @@
     - [資料表模擬資料SQL](./order-practice-db-init/scripts/data.sql)
 - [實作細節與SQL](./docs/detail.md)
 - [訂單系統使用說明](./docs/README.md)
+    - [訂單系統範例-註冊](./docs/examples/register.md)
+    - [訂單系統範例-訂單](./docs/examples/order.md)
 
 ## 主要實體
 
