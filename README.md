@@ -210,16 +210,18 @@
 
 在階段1同時建立所有標「1」的資料表，就能保證這些表之間沒有外鍵依賴，不會衝突。接著依序建立階段 2、3… 的資料表，就能順利完成資料表之間的結構。
 
-1. **階段 1（無外鍵依賴）**：
+1. **階段 0**：
+    - Employee
+2. **階段 1（無外鍵依賴）**：
     - Customer
     - PaymentMethod
     - Product
     - ShipmentMethod
-2. **階段 2（只參考階段 1）**：
+3. **階段 2（只參考階段 1）**：
     - Order（外鍵參照 Customer, Employee〔Employee 在本例標為階段 0〕）
-3. **階段 3（參考階段 2 + 階段 1）**：
+4. **階段 3（參考階段 2 + 階段 1）**：
     - OrderDetail（外鍵參照 Order, Product）
-4. **階段 4（參考階段 3 + 階段 1）**：
+5. **階段 4（參考階段 3 + 階段 1）**：
     - Shipment（外鍵參照 OrderDetail, Employee, ShipmentMethod）
-5. **階段 5（參考階段 2 + 階段 1）**：
+6. **階段 5（參考階段 2 + 階段 1）**：
     - Invoice（外鍵參照 Order, PaymentMethod）
