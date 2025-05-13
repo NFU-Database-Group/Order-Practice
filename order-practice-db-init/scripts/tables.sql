@@ -34,8 +34,8 @@ CREATE TABLE `Customer` (
     `custTelNo` VARCHAR(20) NOT NULL,
     `custFaxNo` VARCHAR(20) DEFAULT NULL,
     `DOB` DATE DEFAULT NULL,
-    `maritalStatus` ENUM ('Single', 'Married', 'Divorced', 'Widowed') DEFAULT 'Single',
-    `creditRating` TINYINT UNSIGNED DEFAULT NULL,
+    `maritalStatus` ENUM('Single', 'Married', 'Divorced', 'Widowed') DEFAULT 'Single',
+    `creditRating` SMALLINT UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`customerNo`),
     UNIQUE KEY `uk_customer_tel` (`custTelNo`),
     UNIQUE KEY `uk_customer_fax` (`custFaxNo`)

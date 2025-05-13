@@ -1,0 +1,11 @@
+{
+    "[sql]": {
+        "editor.defaultFormatter": "ReneSaarsoo.sql-formatter-vsc"
+    },
+    "prettier.endOfLine": "lf",
+    "prettier.htmlWhitespaceSensitivity": "css",
+    "prettier.semi": true,
+    "prettier.tabWidth": 4,
+    "prettier.printWidth": 160,
+    "SQL-Formatter-VSCode.dialect": "mariadb"
+}

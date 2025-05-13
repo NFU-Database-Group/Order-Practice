@@ -2,10 +2,20 @@
 
 > [!NOTE]
 >
-> - 要求：參見附錄 E，於一周內建立簡單的 `庫存管理` 與 `訂單系統` (期限 05/14/25)
+> - 要求：參見附錄E，於一周內建立簡單的 `庫存管理` 與 `訂單系統` (期限 05/14/25)  
 > - 加分項目：自動化處理，系統非被動被呼叫
 
 ## 摘要
+
+### SQL讀取方法
+
+1. 初始化資料庫 `init.sql`
+2. 建立所有資料表 `tables.sql`
+3. 對每個資料表建立五筆資料 `insert.sql`
+
+<https://github.com/user-attachments/assets/5d9e431c-6040-4305-8147-7dc18dddb470>
+
+### 資料表互動說明
 
 - 客戶（Customer）下訂單（Order），每筆訂單都要有人員（Employee）確認並處理。
 - 處理完成後，對每筆訂單產生一張發票（Invoice），並記錄用戶選擇的付款方式（PaymentMethod）。
@@ -224,16 +234,18 @@
 
 在階段 1 同時建立所有標「1」的資料表，就能保證這些表之間沒有外鍵依賴，不會衝突。接著依序建立階段 2、3… 的資料表，就能順利完成資料表之間的結構。
 
-1. **階段 1（無外鍵依賴）**：
-   - Customer
-   - PaymentMethod
-   - Product
-   - ShipmentMethod
-2. **階段 2（只參考階段 1）**：
-   - Order（外鍵參照 Customer, Employee〔Employee 在本例標為階段 0〕）
-3. **階段 3（參考階段 2 + 階段 1）**：
-   - OrderDetail（外鍵參照 Order, Product）
-4. **階段 4（參考階段 3 + 階段 1）**：
-   - Shipment（外鍵參照 OrderDetail, Employee, ShipmentMethod）
-5. **階段 5（參考階段 2 + 階段 1）**：
-   - Invoice（外鍵參照 Order, PaymentMethod）
+1. **階段 0**：
+    - Employee
+2. **階段 1（無外鍵依賴）**：
+    - Customer
+    - PaymentMethod
+    - Product
+    - ShipmentMethod
+3. **階段 2（只參考階段 1）**：
+    - Order（外鍵參照 Customer, Employee〔Employee 在本例標為階段 0〕）
+4. **階段 3（參考階段 2 + 階段 1）**：
+    - OrderDetail（外鍵參照 Order, Product）
+5. **階段 4（參考階段 3 + 階段 1）**：
+    - Shipment（外鍵參照 OrderDetail, Employee, ShipmentMethod）
+6. **階段 5（參考階段 2 + 階段 1）**：
+    - Invoice（外鍵參照 Order, PaymentMethod）
