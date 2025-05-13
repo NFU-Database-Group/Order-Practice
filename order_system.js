@@ -168,6 +168,7 @@ app.get('/orders', async (req, res) => {
         conn = await pool.getConnection();
         const rows = await conn.query('SELECT orderNo, orderDate, status, employeeNo FROM `order` WHERE customerNo = ?', [req.session.user.id]);
         for (let i = 0; i < rows.length; i++) {
+          const employee = await conn.query('SELECT firstName, lastName FROM employee WHERE employeeNo = ?', [rows[i].employeeNo]);
           const detail = await conn.query('SELECT productNo, quantityOrdered FROM OrderDetail WHERE orderNo = ?', [rows[i].orderNo]);
           const products = [];
           for (let j = 0; j < detail.length; j++) {
@@ -183,7 +184,7 @@ app.get('/orders', async (req, res) => {
             id: rows[i].orderNo,
             date: rows[i].orderDate,
             status: rows[i].status,
-            employeeNo: rows[i].employeeNo,
+            employee: employee[0].lastName+employee[0].firstName,
             orderDetails: products
           };
           orders.push(order);
@@ -196,19 +197,37 @@ app.get('/orders', async (req, res) => {
     res.render('orders', { title: '訂單', user: req.session.user || null, orders: orders });
 });
 app.post('/orders', async (req, res) => {
+  let { deliveryMethod, paymentMethod } = req.body;
   if (!req.session.loggedIn) {
     return res.status(401).send('請先登入');
   }
   let conn;
   try {
     const now = new Date();
+    const date = now.toISOString().slice(0, 19).replace('T', ' ');
     conn = await pool.getConnection();
     const employee = await conn.query('SELECT employeeNo FROM employee');
     const randomIndex = Math.floor(Math.random() * employee.length);
-    const orderNo = await conn.query('INSERT INTO `order` (orderDate, customerNo, employeeNo, status) VALUES (?, ?, ?, ?)', [now.toISOString().slice(0, 19).replace('T', ' '), req.session.user.id, randomIndex, 'TBC']);
+    const orderNo = await conn.query('INSERT INTO `order` (orderDate, customerNo, employeeNo, status) VALUES (?, ?, ?, ?)', [date, req.session.user.id, randomIndex, 'TBC']);
     for (let i = 0; i < req.session.cart.length; i++) {
       await conn.query('INSERT INTO OrderDetail (orderNo, productNo, quantityOrdered) VALUES (?, ?, ?)', [orderNo.insertId, req.session.cart[i].id, req.session.cart[i].quantity]);
+      await conn.query(
+        'INSERT INTO Shipment (quantity, shipmentDate, completeStatus, orderNo, productNo, employeeNo, sMethodNo) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [
+          req.session.cart[i].quantity,
+          date,
+          'pending',
+          orderNo.insertId,
+          req.session.cart[i].id,
+          employee[randomIndex].employeeNo,
+          deliveryMethod
+        ]
+      );
     }
+    await conn.query(
+      'INSERT INTO Invoice (dateRaised, orderNo, pMethodNo) VALUES (?, ?, ?)',
+      [date, orderNo.insertId, paymentMethod]
+    );
     req.session.cart = [];
     console.log('訂單已建立:', orderNo);
     res.redirect('/orders');

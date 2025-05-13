@@ -30,6 +30,31 @@
             <div>
                 <h3>總金額: NT$<%= totalPrice %></h3>
                 <form action="/orders" method="POST">
+                    <label for="deliveryMethod">配送方式：</label>
+                    <select id="deliveryMethod" name="deliveryMethod" required>
+                        <option value="">請選擇</option>
+                        <option value="1">宅配</option>
+                        <option value="2">7-11超商取貨</option>
+                        <option value="3">全家超商取貨</option>
+                        <option value="4">黑貓宅急便</option>
+                        <option value="5">郵局掛號</option>
+                        <option value="6">公司自取</option>
+                        <option value="7">國際快遞 DHL</option>
+                        <option value="8">國際快遞 FedEx</option>
+                    </select>
+                    <br>
+                    <label for="paymentMethod">付款方式：</label>
+                    <select id="paymentMethod" name="paymentMethod" required>
+                        <option value="">請選擇</option>
+                        <option value="1">信用卡</option>
+                        <option value="2">金融卡</option>
+                        <option value="3">貨到付款</option>
+                        <option value="4">超商繳費</option>
+                        <option value="5">ATM轉帳</option>
+                        <option value="6">Line Pay</option>
+                        <option value="7">Apple Pay</option>
+                    </select>
+                    <br>
                     <button type="submit">下單</button>
                 </form>
             </div>

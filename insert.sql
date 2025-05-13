@@ -58,9 +58,7 @@ INSERT INTO `PaymentMethod` (`paymentMethod`) VALUES
 ('信用卡'),
 ('金融卡'),
 ('貨到付款'),
-('超商代碼繳費'),
+('超商繳費'),
 ('ATM轉帳'),
 ('Line Pay'),
-('街口支付'),
-('Apple Pay'),
-('現金');
+('Apple Pay');

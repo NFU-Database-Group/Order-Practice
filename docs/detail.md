@@ -16,6 +16,15 @@
         ```sql
         SELECT employeeNo FROM employee
         ```
+    -  `/orders` 訂單頁面：取出負責訂單的員工姓名  
+        Query
+        ```js
+        await conn.query('SELECT firstName, lastName FROM employee WHERE employeeNo = ?', [rows[i].employeeNo]);
+        ```
+        SQL
+        ```sql
+        SELECT firstName, lastName FROM employee WHERE employeeNo = <負責員工編號>
+        ```
 
 ## 階段 1
 
@@ -113,3 +122,47 @@
         ```
 
 # Details of Inventory management
+
+## 階段 4
+相關資料表： `Shipment`
+- Shipment
+    - `/orders` 訂單(post)：客戶執行訂購，紀錄運送資訊  
+        INSERT INTO
+        ```js
+        await conn.query(
+            'INSERT INTO Shipment (quantity, shipmentDate, completeStatus, orderNo, productNo, employeeNo, sMethodNo) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [
+            req.session.cart[i].quantity,
+            date,
+            'pending',
+            orderNo.insertId,
+            req.session.cart[i].id,
+            employee[randomIndex].employeeNo,
+            deliveryMethod
+            ]
+        );
+        ```
+        SQL
+        ```sql
+        INSERT INTO Shipment (
+            quantity, shipmentDate, completeStatus, orderNo, productNo, employeeNo, sMethodNo
+        ) VALUES (
+            <某產品在購物車的數量>, <完成日期>, <完成狀態>, <下定訂單編號>, <購物車中某產品編號>, <隨機員工編號>, <運送方式>
+        );
+        ```
+
+## 階段 5
+相關資料表： `Invoice`
+- Invoice
+    - `/orders` 訂單(post)：客戶執行訂購，紀錄發票資訊  
+        INSERT INTO
+        ```js
+        await conn.query(
+            'INSERT INTO Invoice (dateRaised, orderNo, pMethodNo) VALUES (?, ?, ?)',
+            [date, orderNo.insertId, paymentMethod]
+        );
+        ```
+        SQL
+        ```sql
+        INSERT INTO Invoice (dateRaised, orderNo, pMethodNo) VALUES (<發票日期>, <訂單編號>, <付款方式>)
+        ```
