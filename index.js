@@ -69,6 +69,24 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register', { title: '註冊', user: req.session.user || null });
 });
+app.post('/register', async (req, res) => {
+  const { username, password, phone, email } = req.body;
+  let conn;
+  try {
+      conn = await pool.getConnection();
+      const result = await conn.query('INSERT INTO customer (customerName, custTelNo) VALUES (?, ?)', [username, phone]);
+      console.log('註冊成功', result);
+      req.session.user = { name: username };
+      req.session.loggedIn = true;
+      req.session.username = username;
+      res.redirect('/');
+  } catch (err) {
+      console.error('註冊失敗', err);
+      res.status(500).send('註冊失敗');
+  } finally {
+      if (conn) conn.release();
+  }
+});
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   // 在這裡處理登入邏輯
