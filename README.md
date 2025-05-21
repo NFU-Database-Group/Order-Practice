@@ -13,8 +13,6 @@
 2. 建立所有資料表 `tables.sql`
 3. 對每個資料表建立五筆資料 `insert.sql`
 
-<https://github.com/user-attachments/assets/5d9e431c-6040-4305-8147-7dc18dddb470>
-
 ### 資料表互動說明
 
 - 客戶（Customer）下訂單（Order），每筆訂單都要有人員（Employee）確認並處理。
